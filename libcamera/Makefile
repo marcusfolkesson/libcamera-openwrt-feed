@@ -24,93 +24,93 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
 
 define Package/libcamera/default
-  SECTION:=libs
-  CATEGORY:=Multimedia
-  DEPENDS:=+libyaml +libgnutls +libstdcpp
-  TITLE:=libcamera
-  URL:=https://libcamera.org/
+	SECTION:=libs
+	CATEGORY:=Multimedia
+	DEPENDS:=+libyaml +libgnutls +libstdcpp
+	TITLE:=libcamera
+	URL:=https://libcamera.org/
 endef
 
 define Package/libcamera
-  #$(call Package/libcamera/default)
+	$(call Package/libcamera/default)
 endef
 
 define Package/libcamera/description
-  libcamera provides a software stack to support
-  complex devices that need heavy hardware image
-  processing operations.
+	libcamera provides a software stack to support
+	complex devices that need heavy hardware image
+	processing operations.
 
-  http://www.libcamera.org/
+	http://www.libcamera.org/
 endef
 
 
 define Package/libcamera-v4l2
-   $(call Package/libcamera/default)
-   TITLE+= v4l2 compatibility layer
+	$(call Package/libcamera/default)
+	TITLE+= v4l2 compatibility layer
 endef
 
 define Package/libcamera-pipeline-imx8-isi
-   $(call Package/libcamera/default)
-   TITLE+= imx8-isi pipeline
+	$(call Package/libcamera/default)
+	TITLE+= imx8-isi pipeline
 endef
 
 define Package/libcamera-pipeline-imx8-isi/description
-  Pipeline for i.MX8 SoC ISI capture interface
+	Pipeline for i.MX8 SoC ISI capture interface
 endef
 
 define Package/libcamera-pipeline-ipu3
-  $(call Package/libcamera/default)
-  TITLE+= ipu3 pipeline
+	$(call Package/libcamera/default)
+	TITLE+= ipu3 pipeline
 endef
 
 define Package/libcamera-pipeline-ipu3/description
-  Pipeline for Intel IPU3.
+	Pipeline for Intel IPU3.
 endef
 
 define Package/libcamera-pipeline-rkisp1
-  $(call Package/libcamera/default)
-  TITLE+= rkisp1 pipeline
+	$(call Package/libcamera/default)
+	TITLE+= rkisp1 pipeline
 endef
 
 define Package/libcamera-pipeline-rkisp1/description
-  Pipeline for Rockchip ISP1.
+	Pipeline for Rockchip ISP1.
 endef
 
 define Package/libcamera-pipeline-rpi-vc4
-  $(call Package/libcamera/default)
-  TITLE+= rpi/vc4 pipeline
-  DEPENDS+= +boost
+	$(call Package/libcamera/default)
+	TITLE+= rpi/vc4 pipeline
+	DEPENDS+= +boost
 endef
 
 define Package/libcamera-pipeline-rpi-vc4/description
-  Pipeline for Raspberry Pi devices.
+	Pipeline for Raspberry Pi devices.
 endef
 
 define Package/libcamera-pipeline-simple
-  $(call Package/libcamera/default)
-  TITLE+= simple pipeline
+	$(call Package/libcamera/default)
+	TITLE+= simple pipeline
 endef
 
 define Package/libcamera-pipeline-simple/description
-  Pipeline for simple pipelines.
+	Pipeline for simple pipelines.
 endef
 
 define Package/libcamera-pipeline-uvcvideo
-  $(call Package/libcamera/default)
-  TITLE+= uvcvideo pipeline
+	$(call Package/libcamera/default)
+	TITLE+= uvcvideo pipeline
 endef
 
 define Package/libcamera-pipeline-uvcvideo/description
-  Pipeline for uvcvideo devices.
+	Pipeline for uvcvideo devices.
 endef
 
 define Package/libcamera-pipeline-vimc
-  $(call Package/libcamera/default)
-  TITLE+= vimc pipeline
+	$(call Package/libcamera/default)
+	TITLE+= vimc pipeline
 endef
 
 define Package/libcamera-pipeline-vimc/description
- Pieline for the vimc device.
+	Pieline for the vimc device.
 endef
 
 ifeq ($(CONFIG_PACKAGE_libcamera-pipeline-imx8-isi),y)
@@ -151,17 +151,17 @@ MESON_ARGS += \
 	-Dwerror=false
 
 define Build/InstallDev
-  $(INSTALL_DIR) $(1)/usr/include
-  $(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/
-  $(INSTALL_DIR) $(1)/usr/lib
-  $(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so* $(1)/usr/lib/
-  $(INSTALL_DIR) $(1)/usr/lib/pkgconfig
-  $(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/*.pc $(1)/usr/lib/pkgconfig
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/*.pc $(1)/usr/lib/pkgconfig
 endef
 
 define Package/libcamera/install
-  $(INSTALL_DIR) $(1)/usr/lib
-  $(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so.* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so.* $(1)/usr/lib/
 endef
 
 Package/libcamera-v4l2/install = $(Package/libcamera/install)

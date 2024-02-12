@@ -21,10 +21,10 @@ PKG_LICENSE:= \
 	CC-BY-SA-4.0 (doc)
 
 PKG_BUILD_DEPENDS:= \
-	python-jinja2 \
-	python-ply \
-	python-yaml \
-	pkgconf \
+	python3/host \
+	python-jinja2/host \
+	python-ply/host \
+	python-yaml/host \
 	openssl
 
 include $(INCLUDE_DIR)/package.mk
@@ -33,7 +33,7 @@ include $(INCLUDE_DIR)/meson.mk
 define Package/libcamera/default
 	SECTION:=libs
 	CATEGORY:=Multimedia
-	DEPENDS:=+libyaml +libgnutls +libstdcpp +libdw
+	DEPENDS:=+libyaml +libgnutls +libstdcpp
 	TITLE:=libcamera
 	URL:=https://libcamera.org/
 endef
@@ -169,6 +169,14 @@ endef
 define Package/libcamera/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so.* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/share/libcamera
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/libcamera/* $(1)/usr/share/libcamera/
+	$(INSTALL_DIR) $(1)/usr/libexec/libcamera
+	$(CP) $(PKG_INSTALL_DIR)/usr/libexec/libcamera/* $(1)/usr/libexec/libcamera/
+	$(INSTALL_DIR) $(1)/usr/share/libcamera/ipa
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/libcamera/ipa/* $(1)/usr/share/libcamera/ipa/
+	$(INSTALL_DIR) $(1)/usr/share/libcamera/ipa
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/libcamera/ipa/* $(1)/usr/share/libcamera/ipa/
 endef
 
 Package/libcamera-v4l2/install = $(Package/libcamera/install)

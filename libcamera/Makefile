@@ -20,13 +20,20 @@ PKG_LICENSE:= \
 	CC0-1.0 (meson build system), \
 	CC-BY-SA-4.0 (doc)
 
+PKG_BUILD_DEPENDS:= \
+	python-jinja2 \
+	python-ply \
+	python-yaml \
+	pkgconf \
+	openssl
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
 
 define Package/libcamera/default
 	SECTION:=libs
 	CATEGORY:=Multimedia
-	DEPENDS:=+libyaml +libgnutls +libstdcpp
+	DEPENDS:=+libyaml +libgnutls +libstdcpp +libdw
 	TITLE:=libcamera
 	URL:=https://libcamera.org/
 endef

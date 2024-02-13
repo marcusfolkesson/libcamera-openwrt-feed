@@ -1,0 +1,48 @@
+From d83ddb86b975bf839b162e18f433f004065f2939 Mon Sep 17 00:00:00 2001
+From: Marcus Folkesson <marcus.folkesson@gmail.com>
+Date: Tue, 13 Feb 2024 08:48:38 +0100
+Subject: [PATCH] libcamera: base: remove support for libdw and libunwind
+
+Some openwrt configuration has libdw and libunwind available in the
+build stage but does not intend to include it on target. The Meson build
+system find these libraries and include them causing runtime errors.
+
+Signed-off-by: Marcus Folkesson <marcus.folkesson@gmail.com>
+---
+ src/libcamera/base/meson.build | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/src/libcamera/base/meson.build b/src/libcamera/base/meson.build
+index 7a7fd7e4..bf22bf48 100644
+--- a/src/libcamera/base/meson.build
++++ b/src/libcamera/base/meson.build
+@@ -22,26 +22,13 @@ libcamera_base_sources = files([
+     'utils.cpp',
+ ])
+ 
+-libdw = dependency('libdw', required : false)
+-libunwind = dependency('libunwind', required : false)
+-
+ if cc.has_header_symbol('execinfo.h', 'backtrace')
+     config_h.set('HAVE_BACKTRACE', 1)
+ endif
+ 
+-if libdw.found()
+-    config_h.set('HAVE_DW', 1)
+-endif
+-
+-if libunwind.found()
+-    config_h.set('HAVE_UNWIND', 1)
+-endif
+-
+ libcamera_base_deps = [
+     libatomic,
+-    libdw,
+     libthreads,
+-    libunwind,
+ ]
+ 
+ # Internal components must use the libcamera_base_private dependency to enable
+-- 
+2.43.0
+

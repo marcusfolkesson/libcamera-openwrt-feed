@@ -33,7 +33,8 @@ include $(INCLUDE_DIR)/meson.mk
 define Package/libcamera/default
 	SECTION:=libs
 	CATEGORY:=Multimedia
-	DEPENDS:=+libyaml +libgnutls +libstdcpp
+	DEPENDS:=+libyaml +libgnutls +libstdcpp \
+		PACKAGE_gstreamer:gstreamer
 	TITLE:=libcamera
 	URL:=https://libcamera.org/
 endef
@@ -146,7 +147,6 @@ endif
 
 ifeq ($(CONFIG_PACKAGE_gstreamer),y)
 	LIBCAMERA_CONF_OPTS += -Dgstreamer=enabled
-	LIBCAMERA_DEPENDENCIES += CONFIG_PACKAGE_gstreamer
 endif
 
 MESON_ARGS += \

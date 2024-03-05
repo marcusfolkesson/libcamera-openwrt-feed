@@ -30,11 +30,16 @@ PKG_BUILD_DEPENDS:= \
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
 
+
+define Package/libcamera/config
+  source "$(SOURCE)/Config.in"
+endef
+
 define Package/libcamera/default
 	SECTION:=libs
 	CATEGORY:=Multimedia
 	DEPENDS:=+libyaml +libgnutls +libstdcpp \
-		PACKAGE_gstreamer:gstreamer
+		PACKAGE_gstreamer1:gstreamer1
 	TITLE:=libcamera
 	URL:=https://libcamera.org/
 endef
@@ -51,97 +56,27 @@ define Package/libcamera/description
 	http://www.libcamera.org/
 endef
 
-
-define Package/libcamera-v4l2
-	$(call Package/libcamera/default)
-	TITLE+= v4l2 compatibility layer
-endef
-
-define Package/libcamera-pipeline-imx8-isi
-	$(call Package/libcamera/default)
-	TITLE+= imx8-isi pipeline
-endef
-
-define Package/libcamera-pipeline-imx8-isi/description
-	Pipeline for i.MX8 SoC ISI capture interface
-endef
-
-define Package/libcamera-pipeline-ipu3
-	$(call Package/libcamera/default)
-	TITLE+= ipu3 pipeline
-endef
-
-define Package/libcamera-pipeline-ipu3/description
-	Pipeline for Intel IPU3.
-endef
-
-define Package/libcamera-pipeline-rkisp1
-	$(call Package/libcamera/default)
-	TITLE+= rkisp1 pipeline
-endef
-
-define Package/libcamera-pipeline-rkisp1/description
-	Pipeline for Rockchip ISP1.
-endef
-
-define Package/libcamera-pipeline-rpi-vc4
-	$(call Package/libcamera/default)
-	TITLE+= rpi/vc4 pipeline
-	DEPENDS+= +boost
-endef
-
-define Package/libcamera-pipeline-rpi-vc4/description
-	Pipeline for Raspberry Pi devices.
-endef
-
-define Package/libcamera-pipeline-simple
-	$(call Package/libcamera/default)
-	TITLE+= simple pipeline
-endef
-
-define Package/libcamera-pipeline-simple/description
-	Pipeline for simple pipelines.
-endef
-
-define Package/libcamera-pipeline-uvcvideo
-	$(call Package/libcamera/default)
-	TITLE+= uvcvideo pipeline
-endef
-
-define Package/libcamera-pipeline-uvcvideo/description
-	Pipeline for uvcvideo devices.
-endef
-
-define Package/libcamera-pipeline-vimc
-	$(call Package/libcamera/default)
-	TITLE+= vimc pipeline
-endef
-
-define Package/libcamera-pipeline-vimc/description
-	Pieline for the vimc device.
-endef
-
-ifeq ($(CONFIG_PACKAGE_libcamera-pipeline-imx8-isi),y)
+ifeq ($(CONFIG_LIBCAMERA_PIPELINE_IMX8_ISI),y)
 	LIBCAMERA_PIPELINES += imx8-isi
 endif
-ifeq ($(CONFIG_PACKAGE_libcamera-pipeline-ipu3),y)
+ifeq ($(CONFIG_LIBCAMERA_PIPELINE_IPU3),y)
 	LIBCAMERA_PIPELINES += ipu3
 endif
-ifeq ($(CONFIG_PACKAGE_libcamera-pipeline-rkisp1),y)
+ifeq ($(CONFIG_LIBCAMERA_PIPELINE_RKISP1),y)
 	LIBCAMERA_PIPELINES += rkisp1
 endif
-ifeq ($(CONFIG_PACKAGE_libcamera-pipeline-rpi-vc4),y)
+ifeq ($(CONFIG_LIBCAMERA_PIPELINE_RPI_VC4),y)
 	LIBCAMERA_PIPELINES += rpi/vc4
 endif
-ifeq ($(CONFIG_PACKAGE_libcamera-pipeline-simple),y)
+ifeq ($(CONFIG_LIBCAMERA_PIPELINE_SIMPLE),y)
 	LIBCAMERA_PIPELINES += simple
 endif
-ifeq ($(CONFIG_PACKAGE_libcamera-pipeline-vimc),y)
+ifeq ($(CONFIG_LIBCAMERA_PIPELINE_VIMC),y)
 	LIBCAMERA_PIPELINES += vimc
 endif
 MESON_ARGS += -Dpipelines=$(subst $(space),$(comma),$(LIBCAMERA_PIPELINES))
 
-ifeq ($(CONFIG_PACKAGE_libcamera-v4l2),y)
+ifeq ($(CONFIG_LIBCAMERA_V4L2),y)
 	MESON_ARGS += -Dv4l2=true
 endif
 
@@ -179,20 +114,4 @@ define Package/libcamera/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/libcamera/ipa/* $(1)/usr/share/libcamera/ipa/
 endef
 
-Package/libcamera-v4l2/install = $(Package/libcamera/install)
-Package/libcamera-pipeline-imx8-isi/install = $(Package/libcamera/install)
-Package/libcamera-pipeline-ipu3/install = $(Package/libcamera/install)
-Package/libcamera-pipeline-rkisp1/install = $(Package/libcamera/install)
-Package/libcamera-pipeline-rpi-vc4/install = $(Package/libcamera/install)
-Package/libcamera-pipeline-uvcvideo/install = $(Package/libcamera/install)
-Package/libcamera-pipeline-vimc/install = $(Package/libcamera/install)
-
 $(eval $(call BuildPackage,libcamera))
-$(eval $(call BuildPackage,libcamera-v4l2))
-$(eval $(call BuildPackage,libcamera-pipeline-imx8-isi))
-$(eval $(call BuildPackage,libcamera-pipeline-ipu3))
-$(eval $(call BuildPackage,libcamera-pipeline-rkisp1))
-$(eval $(call BuildPackage,libcamera-pipeline-rpi-vc4))
-$(eval $(call BuildPackage,libcamera-pipeline-simple))
-$(eval $(call BuildPackage,libcamera-pipeline-uvcvideo))
-$(eval $(call BuildPackage,libcamera-pipeline-vimc))

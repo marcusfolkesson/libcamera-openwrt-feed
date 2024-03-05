@@ -1,0 +1,53 @@
+menu "Configuration"
+        depends on PACKAGE_libcamera
+
+config LIBCAMERA_V4L2
+	bool "v4l2 compatibility layer"
+	default n
+	help
+      Select this to add support V4L2 compatiblity layer
+
+config LIBCAMERA_PIPELINE_IMX8_ISI
+	bool "imx8-isi pipeline"
+	default n
+	help
+	  Pipeline for i.MX8 SoC ISI capture interface
+
+config LIBCAMERA_PIPELINE_IPU3
+	bool "IPU3 pipeline"
+	default n
+	help
+	  Pipeline for Intel IPU3.
+
+config LIBCAMERA_PIPELINE_RKISP1
+	bool "RKISP1 pipeline"
+	default n
+	help
+	  Pipeline for Rockchip ISP1.
+
+config LIBCAMERA_PIPELINE_RPI_VC4
+	bool "RPI VC4 pipeline"
+	default n
+	help
+	  Pipeline for Raspberry Pi devices.
+
+config LIBCAMERA_PIPELINE_SIMPLE
+	bool "Simple pipeline"
+	default n
+	help
+	  Pipeline for simple pipelines.
+	  
+config LIBCAMERA_PIPELINE_UVCVIDEO
+	bool "UVC pipeline"
+	default n
+	help
+	  Pipeline for uvcvideo devices.
+
+config LIBCAMERA_PIPELINE_VIMC
+	bool "VIMC pipeline"
+	default n
+	help
+	  Pipeline for vimc devices.
+
+
+endmenu

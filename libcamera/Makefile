@@ -21,11 +21,11 @@ PKG_LICENSE:= \
 	CC-BY-SA-4.0 (doc)
 
 PKG_BUILD_DEPENDS:= \
-	python3/host \
-	python-jinja2/host \
-	python-ply/host \
-	python-yaml/host \
-	openssl
+	+python3/host \
+	+python-jinja2/host \
+	+python-ply/host \
+	+python-yaml/host \
+	+openssl
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk

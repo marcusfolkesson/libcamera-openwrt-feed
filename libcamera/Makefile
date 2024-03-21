@@ -3,13 +3,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libcamera
-PKG_VERSION:=v0.2.0
+PKG_VERSION:=v0.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://git.linuxtv.org/libcamera.git
 PKG_SOURCE_DATE:=2024-01-09
-PKG_SOURCE_VERSION:=a3690f601bf9a90e1a936d9f361aebd789e3b073
+PKG_SOURCE_VERSION:=668a5e674aed65b8982b449b4bed58ff7e3e1413
 PKG_MAINTAINER:= Marcus Folkesson <marcus.folkesson@gmail.com>
 PKG_LICENSE:= \
 	LGPL-2.1+ (library), \

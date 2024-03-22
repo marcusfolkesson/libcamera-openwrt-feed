@@ -1,0 +1,32 @@
+From 674e517665d2a5db3eff9a4eab9288a10917c1ea Mon Sep 17 00:00:00 2001
+From: Marcus Folkesson <marcus.folkesson@gmail.com>
+Date: Thu, 21 Mar 2024 21:56:54 +0100
+Subject: [PATCH] encoder: pass VIDIOC_QUERYCAP as unsigned long
+
+VIDIOC_QUARYCAP is an unsigned long and should be passed as one.
+
+Signed-off-by: Marcus Folkesson <marcus.folkesson@gmail.com>
+---
+ encoder/encoder.cpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/encoder/encoder.cpp b/encoder/encoder.cpp
+index 05fe3dd..bff54f5 100644
+--- a/encoder/encoder.cpp
++++ b/encoder/encoder.cpp
+@@ -27,9 +27,11 @@ Encoder *h264_codec_select(VideoOptions *options, const StreamInfo &info)
+ 	struct v4l2_capability caps;
+ 	memset(&caps, 0, sizeof(caps));
+ 	int fd = open(hw_codec, O_RDWR, 0);
++	unsigned long request = VIDIOC_QUERYCAP;
++
+ 	if (fd)
+ 	{
+-		int ret = ioctl(fd, VIDIOC_QUERYCAP, &caps);
++		int ret = ioctl(fd, request, &caps);
+ 		if (!ret && !strncmp((char *)caps.card, "bcm2835-codec-encode", sizeof(caps.card)))
+ 			return new H264Encoder(options, info);
+ 	}
+-- 
+2.43.0
+
